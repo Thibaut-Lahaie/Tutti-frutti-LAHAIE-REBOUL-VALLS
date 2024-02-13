@@ -1,5 +1,10 @@
+# Créer une route pour login (/login => App\Controller\SecurityController::login)
 controllers:
     resource:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+
+
+
