@@ -17,7 +17,7 @@ class Musique
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?fruit $fruit = null;
+    private ?Fruit $fruit = null;
 
     #[ORM\Column(length: 255)]
     private ?string $reference = null;
@@ -50,12 +50,12 @@ class Musique
         return $this->id;
     }
 
-    public function getFruit(): ?fruit
+    public function getFruit(): ?Fruit
     {
         return $this->fruit;
     }
 
-    public function setFruit(fruit $fruit): static
+    public function setFruit(Fruit $fruit): static
     {
         $this->fruit = $fruit;
 

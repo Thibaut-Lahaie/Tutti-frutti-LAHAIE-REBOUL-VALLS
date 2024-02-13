@@ -19,7 +19,7 @@ class Playlist
     private ?utilisateur $utilisateur = null;
 
     #[ORM\ManyToOne(inversedBy: 'playlists')]
-    private ?musique $musique = null;
+    private ?Musique $musique = null;
 
     public function __construct()
     {
@@ -78,14 +78,14 @@ class Playlist
         return $this;
     }
 
-    public function setUtilisateur(?utilisateur $utilisateur): static
+    public function setUtilisateur(?Utilisateur $utilisateur): static
     {
         $this->utilisateur = $utilisateur;
 
         return $this;
     }
 
-    public function setMusique(?musique $musique): static
+    public function setMusique(?Musique $musique): static
     {
         $this->musique = $musique;
 
