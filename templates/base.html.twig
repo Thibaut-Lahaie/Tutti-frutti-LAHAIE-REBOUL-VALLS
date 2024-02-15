@@ -1,18 +1,35 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        <!-- Lier avec le fichier style.css situé dans src/templates -->
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="{{ asset('assets/logo_tutti.ico') }}">
+    <!-- Lier avec le fichier style.css situé dans src/templates -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    {% block stylesheets %}
+    {% endblock %}
 
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% block javascripts %}
+    {% endblock %}
+</head>
+<body>
+<header>
+    <img id="logo" src="{{ asset('assets/logo-tutti.webp') }}" alt="logo tutti frutti">
+    <h1>Mon blog</h1>
+</header>
+<nav>
+    <ul>
+        <li><a href="{{ path('app_home') }}"><i class="icon-nav" src="{{ asset('assets/home.png') }}"></i>Accueil</a></li>
+        <li><a><i src="{{ asset('assets/home.png') }}"></i>Mixer !</a></li>
+        <li><a><i src="{{ asset('assets/home.png') }}"></i>Rechercher</a></li>
+        <li><a><i src="{{ asset('assets/home.png') }}"></i>Ma liste</a></li>
+        <li><a><i src="{{ asset('assets/home.png') }}"></i>Discogs</a></li>
+        <li><a><i src="{{ asset('assets/home.png') }}"></i>Profil</a></li>
+        <li><a href="{{ path('app_login') }}"><i src="{{ asset('assets/home.png') }}"></i>Connexion</a></li>
+    </ul>
+</nav>
+<div id="container">
+    {% block body %}{% endblock %}
+</div>
+</body>
 </html>
