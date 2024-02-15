@@ -1,4 +1,5 @@
 <?php
+// src/Entity/Utilisateur.php
 
 namespace App\Entity;
 
@@ -8,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
@@ -18,15 +20,34 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: "Le nom d'utilisateur ne peut pas être vide.")]
+    #[Assert\Length(
+        min: 3,
+        max: 180,
+        minMessage: "Le nom d'utilisateur doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $username = null;
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Le mot de passe ne peut pas être vide.")]
+    #[Assert\Length(
+        min: 6,
+        minMessage: "Le mot de passe doit contenir au moins {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/",
+        message: "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial."
+    )]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'adresse e-mail ne peut pas être vide.")]
+    // Message : L'adresse e-mail "{{ value }}" n'est pas une adresse e-mail valide.
+    #[Assert\Email(message: "L'adresse e-mail n'est pas valide.")]
     private ?string $email = null;
 
     #[ORM\OneToMany(targetEntity: Playlist::class, mappedBy: 'utilisateur')]

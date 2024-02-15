@@ -4,20 +4,28 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\InscriptionType;
-use Doctrine\ORM\EntityManagerInterface; // Ajout de l'importation nécessaire
+use App\Repository\UtilisateurRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+// Ajout de l'importation nécessaire
+
+#[Route('/inscription')]
 class InscriptionController extends AbstractController
 {
-    #[Route('/inscription', name: 'app_inscription')]
+    #[Route('/', name: 'app_inscription')]
     public function index(
-        Request $request,
-        EntityManagerInterface $entityManager // Ajout de l'injection de dépendance pour l'EntityManager
-    ): Response {
+        Request                $request,
+        EntityManagerInterface $entityManager,
+        UtilisateurRepository  $utilisateurRepository,
+        UserPasswordHasherInterface $passwordHasher,
+    ): Response
+    {
         $utilisateur = new Utilisateur();
         $form = $this->createForm(InscriptionType::class, $utilisateur);
 
@@ -25,8 +33,18 @@ class InscriptionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Encodage du mot de passe
-            $encodedPassword = $utilisateur->getPassword();
+            $password = $utilisateur->getPassword();
+
+            // Encodage du mot de passe avec l'algorithme bcrypt
+            $encodedPassword = $passwordHasher->hashPassword($utilisateur, $password);
             $utilisateur->setPassword($encodedPassword);
+
+            // Vérifier si l'utilisateur existe déjà
+            $utilisateurEnBase = $utilisateurRepository->findOneBy(['username' => $utilisateur->getUsername()]);
+            if ($utilisateurEnBase) {
+                $this->addFlash('error', 'Cet utilisateur existe déjà');
+                return $this->redirectToRoute('app_inscription');
+            }
 
             // Persiste l'utilisateur en base de données
             $entityManager->persist($utilisateur);

@@ -23,7 +23,11 @@
         Prêt à écouter le son des fruits ?
     </div>
 
-    <a href="{{ path('app_login') }}" class="btn btn-primary">Se connecter</a>
-
-    <a href="{{ path('app_logout') }}" class="btn btn-primary">Se déconnecter</a>
+    {% if not app.user %}
+        <a href="{{ path('app_login') }}" class="btn btn-primary">Se connecter</a>
+        <a href="{{ path('app_inscription') }}" class="btn btn-primary">S'inscrire</a>
+    {% else %}
+        <a href="{{ path('app_logout') }}" class="btn btn-primary">Se déconnecter</a>
+        <a href="{{ path('app_logout') }}" class="btn btn-primary">Se déconnecter</a>
+    {% endif %}
 {% endblock %}
