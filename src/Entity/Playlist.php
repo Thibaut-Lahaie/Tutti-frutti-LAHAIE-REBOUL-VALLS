@@ -16,7 +16,7 @@ class Playlist
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'playlists')]
-    private ?utilisateur $utilisateur = null;
+    private ?Utilisateur $utilisateur = null;
 
     #[ORM\ManyToOne(inversedBy: 'playlists')]
     private ?Musique $musique = null;
@@ -31,9 +31,9 @@ class Playlist
     }
 
     /**
-     * @return Collection<int, Utilisateur>
+     * @return Utilisateur
      */
-    public function getUtilisateur(): Collection
+    public function getUtilisateur(): Utilisateur
     {
         return $this->utilisateur;
     }
@@ -55,9 +55,9 @@ class Playlist
     }
 
     /**
-     * @return Collection<int, Musique>
+     * @return Musique
      */
-    public function getMusique(): Collection
+    public function getMusique(): Musique
     {
         return $this->musique;
     }
