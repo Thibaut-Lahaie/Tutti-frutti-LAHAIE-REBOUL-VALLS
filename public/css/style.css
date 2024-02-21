@@ -17,13 +17,14 @@ h1 {
 
 nav {
     display: block;
-    width: 15rem;
+    width: 10rem;
     position: fixed;
-    background: red;
+    background: #f4f4f4;
+    border: 1px solid #ddd;
 }
 
-.icon-nav {
-    width: 1rem;
+nav ul li {
+    margin: 1rem;
 }
 
 ul {
@@ -33,9 +34,10 @@ ul {
 }
 
 #container {
-    margin-left: 15rem;
+    margin-left: 10rem;
     padding: 10px;
-    background: blue;
+    background: #f4f4f4;
+    border: 1px solid #ddd;
 }
 
 #logo {
