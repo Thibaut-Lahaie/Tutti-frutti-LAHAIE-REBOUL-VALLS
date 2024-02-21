@@ -84,6 +84,19 @@
       <path value="$PROJECT_DIR$/vendor/symfony/asset" />
       <path value="$PROJECT_DIR$/vendor/symfony/http-client" />
       <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
+      <path value="$PROJECT_DIR$/vendor/calliostro/php-discogs-api" />
+      <path value="$PROJECT_DIR$/vendor/calliostro/discogs-bundle" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle-services" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/command" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/uri-template" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/oauth-subscriber" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />

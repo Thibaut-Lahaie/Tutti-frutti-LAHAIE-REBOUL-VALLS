@@ -6,7 +6,9 @@
     "require": {
         "php": ">=8.1",
         "ext-ctype": "*",
+        "ext-curl": "*",
         "ext-iconv": "*",
+        "calliostro/discogs-bundle": "^3.0",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.0",
         "symfony/asset": "6.4.*",
