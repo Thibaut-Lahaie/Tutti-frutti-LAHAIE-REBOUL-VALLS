@@ -22,4 +22,12 @@
 
         Prêt à écouter le son des fruits ?
     </div>
+
+    {% if musiqueAleatoire %}
+        <h2>Un album au hasard</h2>
+        <p>{{ musiqueAleatoire.reference }}</p>
+    {% else %}
+        <p>Aucun album n'est disponible pour le moment.</p>
+
+    {% endif %}
 {% endblock %}

@@ -15,9 +15,9 @@ class Musique
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: Fruit::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Fruit $fruit = null;
+    private Fruit $fruit;
 
     #[ORM\Column(length: 255)]
     private ?string $reference = null;
