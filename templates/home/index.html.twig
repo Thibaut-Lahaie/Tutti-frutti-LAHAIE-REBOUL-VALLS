@@ -24,8 +24,11 @@
     </div>
 
     {% if musiqueAleatoire %}
-        <h2>Un album au hasard</h2>
+        <h2>Titre aléatoire</h2>
         <p>{{ musiqueAleatoire.reference }}</p>
+        <img src="{{ musiqueAleatoire.image }}" alt="{{ musiqueAleatoire.reference }}" width="200">
+
+
     {% else %}
         <p>Aucun album n'est disponible pour le moment.</p>
 

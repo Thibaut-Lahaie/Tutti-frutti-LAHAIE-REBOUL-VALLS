@@ -39,7 +39,10 @@ class DiscogsProcessor extends AbstractController
             $music->setLabel(explode('-', $result['title'])[1] ?? null);
             $music->setGenre($result['genre'][0] ?? null);
             $music->setFormat($result['format'][0] ?? null);
+            $music->setStyle($result['style'][0] ?? null);
+            $music->setImage($result['thumb'] ?? null);
             $music->setFruit($fruit);
+
             $musics[] = $music;
         }
 
