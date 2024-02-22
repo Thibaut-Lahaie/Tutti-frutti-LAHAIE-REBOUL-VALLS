@@ -20,18 +20,28 @@ class DiscogsProcessor extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    public function updateDatabaseWithFruit(string $fruit): void
+    public function updateDatabaseWithFruit(string $fruit, bool $isEn): void
     {
         // Recherche sur discogs avec le fruit donné
         $response = $this->discogs->search(['q' => $fruit]);
         $results = $response['results'];
 
         // Récupérer le fruit en base de données
-        $fruit = $this->entityManager->getRepository(Fruit::class)->findOneBy(['nomEn' => $fruit]);
+        if ($isEn) {
+            $fruit = $this->entityManager->getRepository(Fruit::class)->findOneBy(['nomEn' => $fruit]);
+        } else {
+            $fruit = $this->entityManager->getRepository(Fruit::class)->findOneBy(['nomFr' => $fruit]);
+        }
 
+        echo "/////////////////////////////////////////\n";
+        echo "////////Récupération des musiques////////\n";
+        echo "/////////////////////////////////////////\n";
+        echo "\n";
         // Créer un objet de type Musique avec les informations récupérées
         $musics = [];
         foreach ($results as $result) {
+            echo json_encode($result) . "\n";
+
             $music = new Musique();
             $music->setReference($result['title'] ?? null);
             $music->setAnnee($result['year'] ?? null);
@@ -44,37 +54,39 @@ class DiscogsProcessor extends AbstractController
             $music->setFruit($fruit);
 
             // Récupérer le lien de la vidéo youtube
-            $id = $result['id'];
-            var_dump($result['id']);
-            if ($id) {
-                try {
-                    $master = $this->discogs->getMaster(['id' => $id]);
-                } catch (\Exception $e) {
-                    $musics[] = $music;
-                    continue;
-                }
-                try {
-                    var_dump($master);
-                    $uri = $master['videos'][0]['uri'];
-                } catch (\Exception $e) {
-                    $musics[] = $music;
-                    continue;
-                }
+            $id = $result['id'] ?? null;
+            if ($id === null) {
+                $master = $this->discogs->getMaster(['id' => $id]) ?? null;
+                $uri = $master['videos'][0]['uri'] ?? null;
                 $music->setLien($uri);
+            } else {
+                $music->setLien(null);
             }
+
+            // Afficher la référence de la musique dans la console
+            echo "Musique trouvée : " . $music->getReference() . "\n";
+
             $musics[] = $music;
         }
 
+        echo "\n";
+        echo "/////////////////////////////////////////\n";
+        echo "////////Ajout des musiques en base////////\n";
+        echo "/////////////////////////////////////////\n";
+        echo "\n";
 
         // Ajouter les musiques en base de données
         foreach ($musics as $music) {
             // Vérifier si la musique existe déjà en base de données
             $musicEnBase = $this->entityManager->getRepository(Musique::class)->findOneBy(['reference' => $music->getReference()]);
             if ($musicEnBase) {
+                echo "La musique " . $music->getReference() . " existe déjà en base de données\n";
                 continue;
             }
             $this->entityManager->persist($music);
             $this->entityManager->flush();
+            echo "La musique " . $music->getReference() . " a été ajoutée en base de données\n";
         }
+        echo "\n";
     }
 }
