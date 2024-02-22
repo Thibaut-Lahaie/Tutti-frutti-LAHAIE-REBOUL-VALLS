@@ -2,19 +2,12 @@
 
 {% block title %}Bienvenue sur Tutti Frutti !{% endblock %}
 
+{# ajouter la variable fruit.couleur au fond #}
 {% block body %}
     <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
-
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
+           body {
+                background-color: {{ fruit.couleurPastel ?? 'white' }};
+           }
     </style>
 
     <div class="example-wrapper">
@@ -22,15 +15,30 @@
 
         Prêt à écouter le son des fruits ?
     </div>
+    {% if fruit %}
+        <h2>Le fruit du jour</h2>
+        <p>{{ fruit.nomFr }}</p>
+        <p>{{ fruit.nomEn }}</p>
+    {% else %}
+        <p>Aucun fruit n'est disponible pour le moment.</p>
+    {% endif %}
 
     {% if musiqueAleatoire %}
         <h2>Titre aléatoire</h2>
-        <p>{{ musiqueAleatoire.reference }}</p>
-        <img src="{{ musiqueAleatoire.image }}" alt="{{ musiqueAleatoire.reference }}" width="200">
-
-
-    {% else %}
-        <p>Aucun album n'est disponible pour le moment.</p>
-
+        <p>{{ musiqueAleatoire.nomDeGroupe }}</p>
+        <p>{{ musiqueAleatoire.Label }}</p>
+        <a href="{{ musiqueAleatoire.lien ?? '' }}">
+            <img src="{{ musiqueAleatoire.image }}" alt="{{ musiqueAleatoire.reference }}" width="200">
+        </a>
     {% endif %}
+
+    <h2>Les fruits</h2>
+    <ul id="fruits">
+        <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Pastèque'}) }}"><img src="{{ asset('assets/watermelon.png') }}" alt="Pastèque"></a></li>
+        <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Fraise'}) }}"><img src="{{ asset('assets/strawberry.png') }}" alt="Fraise"></a></li>
+        <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Banane'}) }}"><img src="{{ asset('assets/banana.png') }}" alt="Banane"></a></li>
+        <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Myrtille'}) }}"><img src="{{ asset('assets/blueberry.png') }}" alt="Myrtille"></a></li>
+        <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Pêche'}) }}"><img src="{{ asset('assets/peach.png') }}" alt="Pêche"></a></li>
+    </ul>
+
 {% endblock %}
