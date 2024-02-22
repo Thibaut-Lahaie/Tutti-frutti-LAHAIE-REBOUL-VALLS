@@ -26,26 +26,32 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'app_home')]
-    public function index() : Response
+    public function index(): Response
     {
-        if ($this->getUser()) {
-            // Récupérer un fruit aléatoire
-            $fruits = $this->fruitRepository->findAll();
-            $fruitAleatoire = $fruits[array_rand($fruits)];
-
-            // Récupérer une musique aléatoire
-            $musiques = $this->musiqueRepository->findBy(['fruit' => $fruitAleatoire]);
-            $musiqueAleatoire = $musiques[array_rand($musiques)];
-
-            return $this->render('home/index.html.twig', [
-                'controller_name' => 'HomeController',
-                'musiqueAleatoire' => $musiqueAleatoire,
-            ]);
-        }
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'musiqueAleatoire' => null,
+            'fruit' => null,
         ]);
     }
 
+    #[Route('/home/{nomFruit}', name: 'app_home_fruit')]
+    public function home(string $nomFruit): Response
+    {
+        // Récupérer le fruit
+        $fruit = $this->fruitRepository->findOneBy(['nomEn' => $nomFruit]);
+        if (!$fruit) {
+            $fruit = $this->fruitRepository->findOneBy(['nomFr' => $nomFruit]);
+        }
+
+        // Récupérer une musique aléatoire
+        $musiques = $this->musiqueRepository->findBy(['fruit' => $fruit]);
+        $musiqueAleatoire = $musiques[array_rand($musiques)];
+
+        return $this->render('home/index.html.twig', [
+            'controller_name' => 'HomeController',
+            'musiqueAleatoire' => $musiqueAleatoire,
+            'fruit' => $fruit,
+        ]);
+    }
 }
