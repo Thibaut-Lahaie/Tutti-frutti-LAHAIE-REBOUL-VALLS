@@ -1,5 +1,4 @@
 header {
-    background-color: #f4f4f4;
     padding: 1rem 0;
     height: 2rem;
     display: flex;
@@ -19,7 +18,6 @@ nav {
     display: block;
     width: 10rem;
     position: fixed;
-    background: #f4f4f4;
     border: 1px solid #ddd;
 }
 
@@ -36,7 +34,6 @@ ul {
 #container {
     margin-left: 10rem;
     padding: 10px;
-    background: #f4f4f4;
     border: 1px solid #ddd;
 }
 
@@ -64,6 +61,5 @@ ul {
 }
 
 .example-wrapper code {
-    background: #F5F5F5;
     padding: 2px 6px;
 }

@@ -26,7 +26,8 @@
 
     {% if musiqueAleatoire %}
         <h2>Titre aléatoire</h2>
-        <p>{{ musiqueAleatoire.reference }}</p>
+        <p>{{ musiqueAleatoire.nomDeGroupe }}</p>
+        <p>{{ musiqueAleatoire.Label }}</p>
         <a href="{{ musiqueAleatoire.lien ?? '' }}">
             <img src="{{ musiqueAleatoire.image }}" alt="{{ musiqueAleatoire.reference }}" width="200">
         </a>
