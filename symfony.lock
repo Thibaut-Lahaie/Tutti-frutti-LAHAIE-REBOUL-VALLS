@@ -1,4 +1,7 @@
 {
+    "calliostro/discogs-bundle": {
+        "version": "v3.0.1"
+    },
     "doctrine/doctrine-bundle": {
         "version": "2.11",
         "recipe": {

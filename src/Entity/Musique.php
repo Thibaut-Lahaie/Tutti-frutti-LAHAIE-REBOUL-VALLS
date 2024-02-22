@@ -15,9 +15,9 @@ class Musique
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: Fruit::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Fruit $fruit = null;
+    private Fruit $fruit;
 
     #[ORM\Column(length: 255)]
     private ?string $reference = null;
@@ -39,6 +39,15 @@ class Musique
 
     #[ORM\OneToMany(targetEntity: Playlist::class, mappedBy: 'musique')]
     private Collection $playlists;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $style = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lien = null;
 
     public function __construct()
     {
@@ -160,6 +169,42 @@ class Musique
                 $playlist->setMusique(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStyle(): ?string
+    {
+        return $this->style;
+    }
+
+    public function setStyle(?string $style): static
+    {
+        $this->style = $style;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getLien(): ?string
+    {
+        return $this->lien;
+    }
+
+    public function setLien(?string $lien): static
+    {
+        $this->lien = $lien;
 
         return $this;
     }

@@ -19,6 +19,12 @@ class Fruit
     #[ORM\Column(length: 255)]
     private ?string $nomEn = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $couleur = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $couleurPastel = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +50,30 @@ class Fruit
     public function setNomEn(string $nomEn): static
     {
         $this->nomEn = $nomEn;
+
+        return $this;
+    }
+
+    public function getCouleur(): ?string
+    {
+        return $this->couleur;
+    }
+
+    public function setCouleur(string $couleur): static
+    {
+        $this->couleur = $couleur;
+
+        return $this;
+    }
+
+    public function getCouleurPastel(): ?string
+    {
+        return $this->couleurPastel;
+    }
+
+    public function setCouleurPastel(string $couleurPastel): static
+    {
+        $this->couleurPastel = $couleurPastel;
 
         return $this;
     }
