@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Playlist;
-use App\Entity\Project;
 use App\Form\PlaylistType;
-use App\Form\ProjectType;
 use App\Repository\PlaylistRepository;
-use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +23,7 @@ class PlaylistController extends AbstractController
     }
 
 
-    #[\Symfony\Component\Routing\Annotation\Route('/new', name: 'app_project_new', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Annotation\Route('/playlist/new', name: 'app_playlist_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $playlist = new Playlist();
@@ -46,15 +43,15 @@ class PlaylistController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_project_show', methods: ['GET'])]
+    #[Route('/playlist/{id}', name: 'app_playlist_show', methods: ['GET'])]
     public function show(Playlist $playlist): Response
     {
-        return $this->render('project/show.html.twig', [
-            'project' => $playlist,
+        return $this->render('playlist/show.html.twig', [
+            'playlist' => $playlist,
         ]);
     }
 
-    #[Route('/edit/{id}', name: 'app_project_edit', methods: ['GET', 'POST'])]
+    #[Route('/playlist/edit/{id}', name: 'app_playlist_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Playlist $playlist, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PlaylistType::class, $playlist);
@@ -66,13 +63,13 @@ class PlaylistController extends AbstractController
             return $this->redirectToRoute('app_playlist', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('project/edit.html.twig', [
-            'project' => $playlist,
+        return $this->renderForm('playlist/edit.html.twig', [
+            'playlist' => $playlist,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_project_delete', methods: ['POST'])]
+    #[Route('/playlist/{id}', name: 'app_playlist_delete', methods: ['POST'])]
     public function delete(Request $request, Playlist $playlist, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $playlist->getId(), $request->request->get('_token'))) {
