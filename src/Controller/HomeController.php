@@ -33,8 +33,6 @@ class HomeController extends AbstractController
             $musiques = $this->musiqueRepository->findBy(['fruit' => $fruitAleatoire]);
             $musiqueAleatoire = $musiques[array_rand($musiques)];
 
-            var_dump($musiqueAleatoire->getLien());
-
             return $this->render('home/index.html.twig', [
                 'controller_name' => 'HomeController',
                 'musiqueAleatoire' => $musiqueAleatoire,
@@ -42,6 +40,7 @@ class HomeController extends AbstractController
         }
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
+            'musiqueAleatoire' => null,
         ]);
     }
 
