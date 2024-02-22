@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Processor\DiscogsProcessor;
 use App\Repository\FruitRepository;
 use App\Repository\MusiqueRepository;
 use App\Repository\UtilisateurRepository;
-use Discogs\DiscogsClient;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

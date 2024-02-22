@@ -21,7 +21,6 @@
         <p>{{ fruit.nomEn }}</p>
     {% else %}
         <p>Aucun fruit n'est disponible pour le moment.</p>
-
     {% endif %}
 
     {% if musiqueAleatoire %}
@@ -31,9 +30,6 @@
         <a href="{{ musiqueAleatoire.lien ?? '' }}">
             <img src="{{ musiqueAleatoire.image }}" alt="{{ musiqueAleatoire.reference }}" width="200">
         </a>
-
-    {% else %}
-        <p>Veuillez vous connecter</p>
     {% endif %}
 
     <h2>Les fruits</h2>
