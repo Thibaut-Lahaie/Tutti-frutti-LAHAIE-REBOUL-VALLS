@@ -46,6 +46,9 @@ class Musique
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lien = null;
+
     public function __construct()
     {
         $this->playlists = new ArrayCollection();
@@ -190,6 +193,18 @@ class Musique
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getLien(): ?string
+    {
+        return $this->lien;
+    }
+
+    public function setLien(?string $lien): static
+    {
+        $this->lien = $lien;
 
         return $this;
     }
