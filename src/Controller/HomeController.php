@@ -29,12 +29,11 @@ class HomeController extends AbstractController
             $fruits = $this->fruitRepository->findAll();
             $fruitAleatoire = $fruits[array_rand($fruits)];
 
-            // Mettre à jour la base de données avec le fruit aléatoire
-            $discogsProcessor->updateDatabaseWithFruit($fruitAleatoire->getNomEn());
-
             // Récupérer une musique aléatoire
             $musiques = $this->musiqueRepository->findBy(['fruit' => $fruitAleatoire]);
             $musiqueAleatoire = $musiques[array_rand($musiques)];
+
+            var_dump($musiqueAleatoire->getLien());
 
             return $this->render('home/index.html.twig', [
                 'controller_name' => 'HomeController',

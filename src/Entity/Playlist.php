@@ -16,7 +16,7 @@ class Playlist
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'playlists')]
-    private ?utilisateur $utilisateur = null;
+    private ?Utilisateur $utilisateur = null;
 
     #[ORM\ManyToOne(inversedBy: 'playlists')]
     private ?Musique $musique = null;

@@ -43,8 +43,28 @@ class DiscogsProcessor extends AbstractController
             $music->setImage($result['thumb'] ?? null);
             $music->setFruit($fruit);
 
+            // Récupérer le lien de la vidéo youtube
+            $id = $result['id'];
+            var_dump($result['id']);
+            if ($id) {
+                try {
+                    $master = $this->discogs->getMaster(['id' => $id]);
+                } catch (\Exception $e) {
+                    $musics[] = $music;
+                    continue;
+                }
+                try {
+                    var_dump($master);
+                    $uri = $master['videos'][0]['uri'];
+                } catch (\Exception $e) {
+                    $musics[] = $music;
+                    continue;
+                }
+                $music->setLien($uri);
+            }
             $musics[] = $music;
         }
+
 
         // Ajouter les musiques en base de données
         foreach ($musics as $music) {
