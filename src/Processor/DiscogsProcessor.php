@@ -40,8 +40,6 @@ class DiscogsProcessor extends AbstractController
         // Créer un objet de type Musique avec les informations récupérées
         $musics = [];
         foreach ($results as $result) {
-            echo json_encode($result) . "\n";
-
             $music = new Musique();
             $music->setReference($result['title'] ?? null);
             $music->setAnnee($result['year'] ?? null);
