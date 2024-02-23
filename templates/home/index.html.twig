@@ -5,40 +5,55 @@
 {# ajouter la variable fruit.couleur au fond #}
 {% block body %}
     <style>
-           body {
-                background-color: {{ fruit.couleurPastel ?? 'white' }};
-           }
+        body {
+            background-color: {{ fruit.couleurPastel ?? 'white' }};
+        }
     </style>
 
-    <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Bienvenue sur Tutti Frutti ! </h1>
+    Prêt à écouter le son des fruits ?
 
-        Prêt à écouter le son des fruits ?
+    <div id="fruit-song">
+        {% if fruit %}
+            <div>
+                <h2>Fruit actuel :</h2>
+                <img src="{{ asset('assets/' ~ fruit.nomEn|lower ~ '-card.png') }}" alt="{{ fruit.nomFr }}" width="200">
+            </div>
+        {% else %}
+            <p>Veuillez-vous connecter pour accéder aux fonctionnalités.</p>
+        {% endif %}
+
+        {% if musiqueAleatoire %}
+            <div>
+                <h2>Titre aléatoire</h2>
+                <h4>{{ musiqueAleatoire.nomDeGroupe }}</h4>
+                <h6>{{ musiqueAleatoire.Label }}</h6>
+                <a href="{{ musiqueAleatoire.lien ?? '' }}">
+                    {% if musiqueAleatoire.image is not empty and musiqueAleatoire.image|trim is not empty %}
+                        <img src="{{ musiqueAleatoire.image }}" alt="{{ musiqueAleatoire.reference }}" width="200">
+                    {% else %}
+                        <img src="{{ asset('assets/song.jpg') }}" alt="{{ musiqueAleatoire.reference }}" width="200">
+                    {% endif %}
+                </a>
+            </div>
+        {% endif %}
     </div>
-    {% if fruit %}
-        <h2>Le fruit du jour</h2>
-        <p>{{ fruit.nomFr }}</p>
-        <p>{{ fruit.nomEn }}</p>
-    {% else %}
-        <p>Aucun fruit n'est disponible pour le moment.</p>
-    {% endif %}
 
-    {% if musiqueAleatoire %}
-        <h2>Titre aléatoire</h2>
-        <p>{{ musiqueAleatoire.nomDeGroupe }}</p>
-        <p>{{ musiqueAleatoire.Label }}</p>
-        <a href="{{ musiqueAleatoire.lien ?? '' }}">
-            <img src="{{ musiqueAleatoire.image }}" alt="{{ musiqueAleatoire.reference }}" width="200">
-        </a>
+    {% if app.user %}
+        <h2>Les fruits</h2>
+        <ul id="fruits">
+            <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Pastèque'}) }}"><img
+                            src="{{ asset('assets/watermelon.png') }}" alt="Pastèque"></a></li>
+            <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Fraise'}) }}"><img
+                            src="{{ asset('assets/strawberry.png') }}" alt="Fraise"></a></li>
+            <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Banane'}) }}"><img
+                            src="{{ asset('assets/banana.png') }}"
+                            alt="Banane"></a></li>
+            <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Myrtille'}) }}"><img
+                            src="{{ asset('assets/blueberry.png') }}" alt="Myrtille"></a></li>
+            <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Pêche'}) }}"><img src="{{ asset('assets/peach.png') }}"
+                                                                                   alt="Pêche"></a></li>
+        </ul>
     {% endif %}
-
-    <h2>Les fruits</h2>
-    <ul id="fruits">
-        <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Pastèque'}) }}"><img src="{{ asset('assets/watermelon.png') }}" alt="Pastèque"></a></li>
-        <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Fraise'}) }}"><img src="{{ asset('assets/strawberry.png') }}" alt="Fraise"></a></li>
-        <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Banane'}) }}"><img src="{{ asset('assets/banana.png') }}" alt="Banane"></a></li>
-        <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Myrtille'}) }}"><img src="{{ asset('assets/blueberry.png') }}" alt="Myrtille"></a></li>
-        <li><a href="{{ path('app_home_fruit', {'nomFruit': 'Pêche'}) }}"><img src="{{ asset('assets/peach.png') }}" alt="Pêche"></a></li>
-    </ul>
 
 {% endblock %}

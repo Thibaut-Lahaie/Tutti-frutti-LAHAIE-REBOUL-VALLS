@@ -199,3 +199,12 @@ ul {
 .example-wrapper code {
     padding: 2px 6px;
 }
+
+#fruit-song {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16rem;
+    justify-content: center;
+    margin-right: 10rem;
+}

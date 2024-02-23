@@ -48,7 +48,13 @@
             <img src="{{ asset('assets/profil.png') }}" alt="icon"></img>
             <a href="#">Profil</a>
         </li>
-        <li><a href="{{ path('app_login') }}"><i src="{{ asset('assets/home.png') }}"></i>Connexion</a></li>
+        {% if not app.user %}
+            <li><a href="{{ path('app_login') }}"><i src="{{ asset('assets/home.png') }}"></i>Connexion</a></li>
+            <li><a href="{{ path('app_inscription') }}"><i src="{{ asset('assets/home.png') }}"></i>Inscription</a></li>
+        {% else %}
+            <li><a href="{{ path('app_logout') }}"><i src="{{ asset('assets/home.png') }}"></i>Se déconnecter</a></li>
+        {% endif %}
+
     </ul>
 </aside>
 
