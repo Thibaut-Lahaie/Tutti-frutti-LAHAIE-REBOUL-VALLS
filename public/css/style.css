@@ -34,6 +34,7 @@ span#title {
     color: #6DA345;
     font-size: 3rem;
 }
+
 .red-text {
     color: #E5262B;
     font-size: 3rem;
@@ -208,3 +209,44 @@ ul {
     justify-content: center;
     margin-right: 10rem;
 }
+
+.search-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+
+
+    .musiques {
+        width: 75%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+
+        h2 {
+            width: 100%;
+        }
+
+        .musique {
+            width: 15rem;
+
+            img {
+                width: 12rem;
+                min-height: 12rem;
+            }
+        }
+    }
+
+    .filtres {
+        width: 25%;
+        text-align: center;
+
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+    }
+}
+
