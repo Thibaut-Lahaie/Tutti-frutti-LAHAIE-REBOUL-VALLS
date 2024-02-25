@@ -18,27 +18,46 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Hello ✅</h1>
+        <h1>Vos favoris :</h1>
+
+        <form method="get" action="playlist">
+            <label for="annee">Année :</label>
+            <input type="text" id="annee" name="annee">
+
+            <label for="nom_groupe">Nom du groupe :</label>
+            <input type="text" id="nom_groupe" name="nom_groupe">
+
+            <label for="label">Label :</label>
+            <input type="text" id="label" name="label">
+
+            <label for="genre">Genre :</label>
+            <input type="text" id="genre" name="genre">
+
+            <label for="format">Format :</label>
+            <input type="text" id="format" name="format">
+
+            <label for="fruit">Fruit :</label>
+            <input type="text" id="fruit" name="fruit">
+
+            <button type="submit">Filtrer</button>
+        </form>
 
         <table class="table table-bordered">
             <tr>
-                <th>Name</th>
-                <th>Description</th>
+                <th>Titre</th>
+                <th>Année</th>
+                <th>Genre</th>
                 <th width="240px">Action</th>
             </tr>
             {% for playlist in playlists %}
                 <tr>
-                    <td>{{ playlist.musique.reference }}</td>
-                    <td>{{ playlist.utilisateur.username }}</td>
+                    <td>{{ playlist.musique.reference }} - {{ playlist.musique.nomDeGroupe }}</td>
+                    <td>{{ playlist.musique.annee ?? "<div style='font-size:0.8em'><i>Inconnue</i></div>" }}</td>
+                    <td>{{ playlist.musique.genre ?? "<div style='font-size:0.8em'><i>Inconnu</i></div>" }}</td>
                     <td>
                         <form method="post" action="{{ path('app_playlist_delete', {'id': playlist.id}) }}"
                               onsubmit="return confirm('Are you sure you want to delete this item?');">
-                            <a
-                                    class="btn btn-outline-info"
-                                    href="{{ path('musique_show', {'id': playlist.musique.id}) }}">
-                                Détails
-                            </a>
-
+                            <a class="btn btn-outline-info" href="{{ path('musique_show', {'id': playlist.musique.id}) }}">Détails</a>
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ playlist.id) }}">
                             <button class="btn btn-outline-danger">Supprimer</button>
                         </form>
@@ -46,6 +65,5 @@
                 </tr>
             {% endfor %}
         </table>
-
     </div>
 {% endblock %}

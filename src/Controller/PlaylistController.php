@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Playlist;
 use App\Form\PlaylistType;
+use App\Repository\MusiqueRepository;
 use App\Repository\PlaylistRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,31 +16,15 @@ class PlaylistController extends AbstractController
 {
 
     #[\Symfony\Component\Routing\Annotation\Route('/playlist', name: 'app_playlist', methods: ['GET'])]
-    public function index(PlaylistRepository $playlistRepository): Response
+    public function index(Request $request, PlaylistRepository $playlistRepository): Response
     {
+        $user = $this->getUser();
+        $filters = $request->query->all();
+        $arr = $playlistRepository->findByFilters($user, $filters);
+
         return $this->render('playlist/index.html.twig', [
-            'playlists' => $playlistRepository->findAll(),
-        ]);
-    }
-
-
-    #[\Symfony\Component\Routing\Annotation\Route('/playlist/new', name: 'app_playlist_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $playlist = new Playlist();
-        $form = $this->createForm(PlaylistType::class, $playlist);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($playlist);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_playlist', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('playlist/new.html.twig', [
-            'playlist' => $playlist,
-            'form' => $form,
+            'playlists' => $arr,
+             'user' => $user->getUsername(),
         ]);
     }
 
