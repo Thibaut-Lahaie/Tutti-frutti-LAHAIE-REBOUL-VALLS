@@ -21,28 +21,31 @@ class MusiqueRepository extends ServiceEntityRepository
         parent::__construct($registry, Musique::class);
     }
 
-//    /**
-//     * @return Musique[] Returns an array of Musique objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function search(mixed $titre, mixed $nomDeGroupe, mixed $label, mixed $fruit): array
+    {
+        $qb = $this->createQueryBuilder('m');
 
-//    public function findOneBySomeField($value): ?Musique
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if ($titre) {
+            $qb->andWhere('m.reference LIKE :titre')
+                ->setParameter('titre', "%$titre%");
+        }
+
+        if ($nomDeGroupe) {
+            $qb->andWhere('m.nomDeGroupe LIKE :nomDeGroupe')
+                ->setParameter('nomDeGroupe', "%$nomDeGroupe%");
+        }
+
+        if ($label) {
+            $qb->andWhere('m.label LIKE :label')
+                ->setParameter('label', "%$label%");
+        }
+
+        if ($fruit) {
+            $qb->join('m.fruit', 'f')
+                ->andWhere('f.nomFr = :fruit')
+                ->setParameter('fruit', $fruit);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }
