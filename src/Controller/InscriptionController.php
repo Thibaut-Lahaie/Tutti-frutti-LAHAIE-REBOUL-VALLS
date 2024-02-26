@@ -31,6 +31,7 @@ class InscriptionController extends AbstractController
 
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             // Encodage du mot de passe
             $password = $utilisateur->getPassword();
