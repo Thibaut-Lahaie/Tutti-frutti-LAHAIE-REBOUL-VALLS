@@ -4,6 +4,9 @@
 
 {% block body %}
     <style>
+        body{
+            background-color: #CDEAC0;
+        }
         .example-wrapper {
             display: flex;
             justify-content: space-between;
@@ -38,6 +41,9 @@
             display: flex;
             flex-direction: column;
             align-items: center; /* Align items to the end of the container */
+            padding: 20px;
+            background-color: #4BC57C;
+            height: fit-content;
         }
 
         .form-container{
@@ -50,35 +56,59 @@
             margin-bottom: 10px;
             margin-top: 10px;
         }
+
+        .playlist-element{
+            display: flex;
+            align-items: center;
+        }
+
+        .delete-button{
+            border-radius: 30%;
+            padding: 10px;
+            background-color: #4BC57C;
+            color: white;
+        }
+
+        .filter-button{
+            border-radius: 30%;
+            padding: 10px;
+            background-color: black;
+            color: white;
+        }
     </style>
 
     {% if app.user %}
     <div class="example-wrapper">
         <div>
-            <table class="table table-bordered">
-                <tr>
-                    <th colspan="2">Année</th>
-                    <th colspan="2">Genre</th>
-                    <th width="240px">Action</th>
-                </tr>
-                {% for playlist in playlists %}
-                    <tr>
-                        <td colspan="6">{{ playlist.musique.reference }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">{{ playlist.musique.annee ?? "<div style='font-size:0.8em'><i>Inconnue</i></div>" }}</td>
-                        <td colspan="2">{{ playlist.musique.genre ?? "<div style='font-size:0.8em'><i>Inconnu</i></div>" }}</td>
-                        <td>
+            {% for playlist in playlists %}
+                <div class="playlist-element">
+                    <div style="margin-right: 7px">
+                        <img src="{{ playlist.musique.image }}"/>
+                    </div>
+                    <div>
+                        <div>
+                            <p>{{ playlist.musique.reference }}</p>
+                        </div>
+                        <div>
+                            <p style="font-weight: normal">Sortie : {{ playlist.musique.annee ?? "<div style='font-size:0.8em'><i>Inconnue</i></div>" }}</p>
+                        </div>
+                        <div>
+                            <p style="font-weight: normal">Genre : {{ playlist.musique.genre ?? "<div style='font-size:0.8em'><i>Inconnu</i></div>" }}</p>
+                        </div>
+                        <div>
+                            <p style="font-weight: normal">Style : {{ playlist.musique.style ?? "<div style='font-size:0.8em'><i>Inconnu</i></div>" }}</p>
+                        </div>
+                        <div>
                             <form method="post" action="{{ path('app_playlist_delete', {'id': playlist.id}) }}"
-                              onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                  onsubmit="return confirm('Are you sure you want to delete this item?');">
                                 <a class="btn btn-outline-info" href="{{ path('musique_show', {'id': playlist.musique.id}) }}">Détails</a>
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ playlist.id) }}">
-                                <button class="btn btn-outline-danger">Supprimer</button>
+                                <button class="btn btn-outline-danger delete-button">Supprimer</button>
                             </form>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
 
         <div class="filter-container">
@@ -137,7 +167,7 @@
                             </div>
                         </div>
                         <div class="form-field">
-                            <button type="submit">Filtrer</button>
+                            <button type="submit" class="filter-button">Filtrer</button>
                         </div>
                     </div>
                 </form>

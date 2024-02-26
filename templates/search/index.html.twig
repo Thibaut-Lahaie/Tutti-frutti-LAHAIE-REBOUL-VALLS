@@ -1,6 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <style>
+        body{
+            background-color: #B6D8F2;
+        }
+
+        .filter-button{
+            border-radius: 30%;
+            padding: 10px;
+            background-color: black;
+            color: white;
+        }
+
+        .filter-container{
+            background-color: #84b6dd;
+            padding: 20px;
+            height: fit-content;
+        }
+    </style>
     {% if app.user %}
         <div class="search-content">
             <div class="musiques">
@@ -22,7 +40,7 @@
                                     <img src="{{ asset('assets/song.jpg') }}" alt="{{ musique.reference }}" width="200">
                                 {% endif %}
                             </a>
-                            <a href="{{ path('app_playlist_show', {'id': musique.id}) }}">Ajouter à la playlist</a>
+                            <a href="{{ path('app_playlist_add', {'id': musique.id}) }}">Ajouter à la playlist</a>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -31,7 +49,7 @@
             </div>
 
             {# Créer un form avec input pour le nom de groupe, label, etc.) #}
-            <div class="filtres">
+            <div class="filtres filter-container">
                 <h2>Filtrer les résultats</h2>
                 <form class="search-form" action="{{ path('app_search') }}" method="get">
                     <label>
@@ -56,7 +74,7 @@
                         </select>
                     </label>
 
-                    <button type="submit">Rechercher</button>
+                    <button type="submit" class="filter-button">Rechercher</button>
                 </form>
             </div>
         </div>
