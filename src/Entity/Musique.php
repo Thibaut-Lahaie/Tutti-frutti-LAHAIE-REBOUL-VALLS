@@ -208,4 +208,10 @@ class Musique
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        // Renvoyer une string qui représente l'objet
+        return "Musique n°" . $this->id . " : " . $this->reference . " - " . $this->nomDeGroupe . " - " . $this->Label . " - " . $this->genre . " - " . $this->format . " - " . $this->style . " - " . $this->annee . " - " . $this->lien . " - " . $this->image;
+    }
 }

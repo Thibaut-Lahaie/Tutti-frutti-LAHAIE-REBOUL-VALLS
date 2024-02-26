@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PlaylistController!{% endblock %}
+{% block title %}Playlist !{% endblock %}
 
 {% block body %}
     <style>
@@ -52,6 +52,7 @@
         }
     </style>
 
+    {% if app.user %}
     <div class="example-wrapper">
         <div>
             <table class="table table-bordered">
@@ -143,4 +144,9 @@
             </div>
         </div>
     </div>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            Vous devez être connecté pour accéder à cette page.
+        </div>
+    {% endif %}
 {% endblock %}

@@ -1,12 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+}
+
 header {
-    background-color: #f4f4f4;
     padding: 1rem 0;
-    height: 2rem;
+    height: 5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
     font-family: cursive;
+}
+
+header h1 {
+    font-size: 3rem;
 }
 
 h1 {
@@ -15,11 +25,25 @@ h1 {
     margin: 0;
 }
 
+span#title {
+    gap: 1rem;
+    display: flex;
+}
+
+.green-text {
+    color: #6DA345;
+    font-size: 3rem;
+}
+
+.red-text {
+    color: #E5262B;
+    font-size: 3rem;
+}
+
 nav {
     display: block;
     width: 10rem;
     position: fixed;
-    background: #f4f4f4;
     border: 1px solid #ddd;
 }
 
@@ -36,10 +60,193 @@ ul {
 #container {
     margin-left: 10rem;
     padding: 10px;
-    background: #f4f4f4;
     border: 1px solid #ddd;
 }
 
 #logo {
-    width: 3.5rem;
+    width: 6rem;
 }
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(17px);
+    --webkit-backdrop-filter: blur(17px);
+    border-right: 1px solid rgba(255, 255, 255, 0.7);
+    transition: width 0.3s ease;
+}
+
+.sidebar:hover {
+    width: 260px;
+}
+
+.logo img {
+    width: 43px;
+    border-radius: 50%;
+}
+
+.logo h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-left: 15px;
+    display: none;
+}
+
+.sidebar:hover .logo h2 {
+    display: block;
+}
+
+.sidebar .links {
+    list-style: none;
+    margin-top: 20px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    height: calc(100% - 140px);
+}
+
+.sidebar .links::-webkit-scrollbar {
+    display: none;
+}
+
+.links li {
+    display: flex;
+    border-radius: 4px;
+    align-items: center;
+}
+
+.links li:hover {
+    cursor: pointer;
+    background: #fff;
+}
+
+.links h4 {
+    color: #222;
+    font-weight: 500;
+    display: none;
+    margin-bottom: 10px;
+}
+
+.sidebar:hover .links h4 {
+    display: block;
+}
+
+.links hr {
+    margin: 10px 8px;
+    border: 1px solid #4c4c4c;
+}
+
+.sidebar:hover .links hr {
+    border-color: transparent;
+}
+
+.links li span {
+    padding: 12px 10px;
+}
+
+.links li a {
+    padding: 10px;
+    color: #000;
+    display: none;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.sidebar:hover .links li a {
+    display: block;
+}
+
+.links .logout-link {
+    margin-top: 20px;
+}
+
+.links img {
+    width: 2rem;
+    margin: 1rem;
+}
+
+.mix-logo:hover {
+    transform: rotate(360deg);
+    transition: transform 0.5s ease;
+}
+
+#fruits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-around;
+
+    img {
+        width: 8rem;
+    }
+}
+
+.example-wrapper {
+    margin: 1em auto;
+    max-width: 800px;
+    width: 95%;
+    font: 18px/1.5 sans-serif;
+}
+
+.example-wrapper code {
+    padding: 2px 6px;
+}
+
+#fruit-song {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16rem;
+    justify-content: center;
+    margin-right: 10rem;
+}
+
+.search-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+
+
+    .musiques {
+        width: 75%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+
+        h2 {
+            width: 100%;
+        }
+
+        .musique {
+            width: 15rem;
+
+            img {
+                width: 12rem;
+                min-height: 12rem;
+            }
+        }
+    }
+
+    .filtres {
+        width: 25%;
+        text-align: center;
+
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+    }
+}
+
