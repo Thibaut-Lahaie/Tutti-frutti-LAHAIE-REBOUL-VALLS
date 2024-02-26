@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        body{
+            background-color: #B6D8F2;
+        }
+
+        .filter-button{
+            border-radius: 30%;
+            padding: 10px;
+            background-color: black;
+            color: white;
+        }
+
+        .filter-container{
+            background-color: #84b6dd;
+            padding: 20px;
+            height: fit-content;
+        }
+    </style>
+    {% if app.user %}
+        <div class="search-content">
+            <div class="musiques">
+                <h2>Recherche de musiques
+                    {% if musiques %}
+                        ({{ musiques|length }} résultat{{ musiques|length > 1 ? 's' : '' }} trouvé{{ musiques|length > 1 ? 's' : '' }})
+                    {% endif %}
+                </h2>
+
+                {% if musiques %}
+                    {% for musique in musiques %}
+                        <div class="musique">
+                            <h4>{{ musique.nomDeGroupe ?? '-' }}</h4>
+                            <h6>{{ musique.Label ?? '-' }}</h6>
+                            <a href="{{ musique.lien ?? '' }}">
+                                {% if musique.image is not empty and musique.image|trim is not empty %}
+                                    <img src="{{ musique.image }}" alt="{{ musique.reference }}" width="200">
+                                {% else %}
+                                    <img src="{{ asset('assets/song.jpg') }}" alt="{{ musique.reference }}" width="200">
+                                {% endif %}
+                            </a>
+                            <a href="{{ path('app_playlist_add', {'id': musique.id}) }}">Ajouter à la playlist</a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Aucune musique n'a été trouvée.</p>
+                {% endif %}
+            </div>
+
+            {# Créer un form avec input pour le nom de groupe, label, etc.) #}
+            <div class="filtres filter-container">
+                <h2>Filtrer les résultats</h2>
+                <form class="search-form" action="{{ path('app_search') }}" method="get">
+                    <label>
+                        <input type="text" name="titre" placeholder="Rechercher une musique..."
+                               value="{{ app.request.query.get('titre') }}">
+                    </label>
+                    <label>
+                        <input type="text" name="nomDeGroupe" placeholder="Rechercher un groupe..."
+                               value="{{ app.request.query.get('nomDeGroupe') }}">
+                    </label>
+                    <label>
+                        <input type="text" name="label" placeholder="Rechercher un label..."
+                               value="{{ app.request.query.get('label') }}">
+                    </label>
+                    <label>
+                        <select name="fruit">
+                            <option value="">Choisir un fruit</option>
+                            {% for fruit in fruits %}
+                                <option value="{{ fruit.nomFr }}"
+                                        {% if app.request.query.get('fruit') == fruit.nomFr %}selected{% endif %}>{{ fruit.nomFr }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+
+                    <button type="submit" class="filter-button">Rechercher</button>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            Vous devez être connecté pour accéder à cette page.
+        </div>
+    {% endif %}
+
+{% endblock %}

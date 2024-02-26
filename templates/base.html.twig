@@ -1,16 +1,66 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Tutti Frutti !{% endblock %}</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="icon" href="{{ asset('assets/logo_tutti.ico') }}">
+    <!-- Lier avec le fichier style.css situé dans src/templates -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    {% block stylesheets %}
+    {% endblock %}
 
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% block javascripts %}
+    {% endblock %}
+</head>
+<body>
+<header>
+    <img id="logo" src="{{ asset('assets/logo-tutti.webp') }}" alt="logo tutti frutti">
+    <span id="title"><span class="green-text">Tutti</span> <span class="red-text">Frutti</span></span>
+</header>
+
+<aside class="sidebar">
+    <div class="logo">
+        <img src="{{ asset('assets/logo_tutti.ico') }}" alt="logo"></img>
+    </div>
+    <ul class="links">
+        <li>
+            <img src="{{ asset('assets/home.png') }}" alt="icon"></img>
+            <a href="{{ path('app_home') }}">Accueil</a>
+        </li>
+        <!-- <li>
+            <img src="{{ asset('assets/mixer.png') }}" class="mix-logo" alt="icon"></img>
+            <a href="#">Mixer !</a>
+        </li> -->
+        <li>
+            <img src="{{ asset('assets/search.png') }}" alt="icon"></img>
+            <a href="{{ path('app_search') }}">Rechercher</a>
+        </li>
+        <li>
+            <img src="{{ asset('assets/star.png') }}" alt="icon"></img>
+            <a href="{{ path('app_playlist') }}">Ma liste</a>
+        </li>
+        <li>
+            <img src="{{ asset('assets/discogs.png') }}" class="mix-logo" alt="icon"></img>
+            <a href="https://www.discogs.com/">Discogs</a>
+        </li>
+        <!-- <li>
+            <img src="{{ asset('assets/profil.png') }}" alt="icon"></img>
+            <a href="#">Profil</a>
+        </li> -->
+        {% if not app.user %}
+            <li><a href="{{ path('app_login') }}"><i src="{{ asset('assets/home.png') }}"></i>Connexion</a></li>
+            <li><a href="{{ path('app_inscription') }}"><i src="{{ asset('assets/home.png') }}"></i>Inscription</a></li>
+        {% else %}
+            <li><a href="{{ path('app_logout') }}"><i src="{{ asset('assets/home.png') }}"></i>Se déconnecter</a></li>
+        {% endif %}
+
+    </ul>
+</aside>
+
+<div id="container">
+    {% block body %}{% endblock %}
+</div>
+</body>
 </html>
